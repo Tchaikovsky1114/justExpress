@@ -47,8 +47,6 @@ app.post('/process_login',(req, res, next) => {
     // 1. name of the cookie
     // 2. value to set it to
     res.cookie('username',username);
-
-    
     res.redirect('/welcome')
   } else {
     res.redirect('/login?msg=fail&test=hello')
@@ -95,7 +93,7 @@ app.get('/statement',(req, res, next) => {
     `yourstatement ${date}`,
     (error) => {
       if(error && !res.headersSent) {
-        res.redirect('/download/error')
+        res.redirect('/download/error');
       }
   })
 })
