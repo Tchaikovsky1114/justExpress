@@ -79,6 +79,27 @@ app.get('/story/:storyId/:linkId',(req, res, next) => {
 //   res.send('<h1>Story 1</h1>')
 // })
 
+app.get('/statement',(req, res, next) => {
+
+  // This will render the statement IN the browser
+  // res.sendFile(path.join(__dirname,'userStatements/BankStatementChequing.png'));
+
+  // app has a download method, Takes 2 args:
+  // 1. filename
+  // 2. optionally, what you want the filname to download as
+  // 3. error handler
+  const date = new Date().toISOString()
+  res.download(
+    path.join(
+    __dirname,'userStatements/BankStatementChequing.png'),
+    `yourstatement ${date}`,
+    (error) => {
+      if(error && !res.headersSent) {
+        res.redirect('/download/error')
+      }
+  })
+})
+
 app.get('/logout', (req, res, next) => {
   res.clearCookie('username');
   res.redirect('/login');
